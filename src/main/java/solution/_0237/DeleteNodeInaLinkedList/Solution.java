@@ -4,9 +4,6 @@ import model.ListNode;
 
 public class Solution {
 
-
-
-
     // 版本一，自实现方法，需要一直循环到最后
     public void deleteNodeCustom(ListNode node) {
         while (node.next.next != null){
