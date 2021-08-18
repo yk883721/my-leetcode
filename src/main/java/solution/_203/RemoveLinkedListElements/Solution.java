@@ -3,8 +3,6 @@ package solution._203.RemoveLinkedListElements;
 import model.ListNode;
 import util.ListUtil;
 
-import java.util.List;
-
 public class Solution {
 
     public static void main(String[] args) {
