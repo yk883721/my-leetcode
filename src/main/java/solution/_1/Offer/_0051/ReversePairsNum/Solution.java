@@ -11,8 +11,7 @@ public class Solution {
     public int reversePairs(int[] nums) {
 
         int[] temp = new int[nums.length];
-        int sum = mergeSortBU(nums, temp);
-        return sum;
+        return mergeSortBU(nums, temp);
 
     }
 
@@ -38,9 +37,7 @@ public class Solution {
         int res = 0;
         for (int sz = 1; sz < n; sz += sz){
 
-            int l = 0;
-
-            for (l = 0; l + sz < n ;l = l + 2 * sz){
+            for (int l = 0; l + sz < n ;l = l + 2 * sz){
 
                 int mid = l + sz - 1;
                 int r = Math.min(l + 2 * sz - 1, n - 1) ;
@@ -48,16 +45,13 @@ public class Solution {
                 res += number;
 
             }
-
         }
 
         return res;
     }
 
     private int merge(int[] nums, int l, int mid, int r, int[] temp){
-        for (int i = l; i <= r; i++){
-            temp[i] = nums[i];
-        }
+        if (r + 1 - l >= 0) System.arraycopy(nums, l, temp, l, r + 1 - l);
 
         int res = 0;
         int i = l, j = mid + 1;
