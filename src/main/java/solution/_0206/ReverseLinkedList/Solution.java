@@ -1,4 +1,4 @@
-package solution._206.ReverseLinkedList;
+package solution._0206.ReverseLinkedList;
 
 import model.ListNode;
 import util.ListUtil;
