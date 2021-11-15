@@ -44,7 +44,9 @@ public class Solution {
                 p1++;
                 swap(nums, p1, i);
                 p2++;
-                swap(nums, p2, i);
+                if (p1 < p2){
+                    swap(nums, p2, i);
+                }
             }else if (nums[i] == 1){
                 p2++;
                 swap(nums, p2, i);
