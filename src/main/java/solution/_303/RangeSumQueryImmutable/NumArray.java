@@ -1,5 +1,7 @@
 package solution._303.RangeSumQueryImmutable;
 
+import java.util.Arrays;
+
 public class NumArray {
 
 
@@ -7,18 +9,18 @@ public class NumArray {
     //sum[i] 存储的是前 i 个元素的和
     //sum[0] = 0;
     //nums[2...5],  sum[6] 0 1 2 3 4 5, sum[2] 0 1
-    private final int[] sum;
-    public NumArray(int[] nums) {
-        sum = new int[nums.length + 1];
-        sum[0] = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum[i + 1] = sum[i] + nums[i];
-        }
-    }
-
-    public int sumRange(int left, int right) {
-        return sum[right + 1] - sum[left];
-    }
+//    private final int[] sum;
+//    public NumArray(int[] nums) {
+//        sum = new int[nums.length + 1];
+//        sum[0] = 0;
+//        for (int i = 0; i < nums.length; i++) {
+//            sum[i + 1] = sum[i] + nums[i];
+//        }
+//    }
+//
+//    public int sumRange(int left, int right) {
+//        return sum[right + 1] - sum[left];
+//    }
     //endregion
 
     //region 解法二：segmentTree 线段 区间树解法
@@ -81,6 +83,62 @@ public class NumArray {
 //        return leftResult + rightResult;
 //
 //    }
+    //endregion
+
+    //region 解法三：SQRT 分解
+    private final int[] data, blocks;
+    private int N; //元素总数
+    private int B; //每组元素个数
+    private int Bn;//组数
+    public NumArray(int[] nums) {
+        N = nums.length;
+        B = (int)Math.floor(Math.sqrt(nums.length));
+        Bn = (N / B) + (N % B > 0 ? 1: 0);
+
+        data = Arrays.copyOf(nums, N);
+        blocks = new int[Bn];
+        for (int i = 0; i < N; i++) {
+            blocks[i / B] += nums[i];
+        }
+    }
+
+    public int sumRange(int left, int right) {
+        if (left < 0 || right < 0
+                || left > N || right > N){
+            return 0;
+        }
+        int bStart = left / B;
+        int bEnd = right / B;
+
+        int res = 0;
+        if (bStart == bEnd){
+            for (int i = left; i <= right; i++) {
+                res += data[i];
+            }
+            return res;
+        }
+
+        for (int i = left; i < ( bStart + 1) * B; i++) {
+            res += data[i];
+        }
+
+        for (int i = bStart + 1; i < bEnd; i++) {
+            res += blocks[i];
+        }
+
+        for (int i = bEnd * B; i <= right; i++) {
+            res += data[i];
+        }
+
+        return res;
+    }
+
+    public void update(int index, int val) {
+        int oldValue = data[index];
+
+        data[index] = val;
+        blocks[index / B] = blocks[index / B] - oldValue + val;
+    }
     //endregion
 
     public static void main(String[] args) {
