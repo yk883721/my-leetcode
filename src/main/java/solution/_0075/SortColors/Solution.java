@@ -34,27 +34,26 @@ public class Solution {
     //endregion
 
     //region 解法二 双指针，一次遍历
-    public static void sortColors2(int[] nums) {
-        // nums[0, p1] = 0
-        // nums[p1 + 1, p2] = 1
-        // nums[p2 + 1, i - 1] = 2
-        int p1 = -1, p2 = -1;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0){
-                p1++;
-                swap(nums, p1, i);
-                p2++;
-                if (p1 < p2){
-                    swap(nums, p2, i);
-                }
-            }else if (nums[i] == 1){
-                p2++;
-                swap(nums, p2, i);
-            }
-        }
-    }
+//    public static void sortColors2(int[] nums) {
+//        // nums[0, p1] = 0
+//        // nums[p1 + 1, p2] = 1
+//        // nums[p2 + 1, i - 1] = 2
+//        int p1 = -1, p2 = -1;
+//        for (int i = 0; i < nums.length; i++) {
+//            if (nums[i] == 0){
+//                p1++;
+//                swap(nums, p1, i);
+//                p2++;
+//                if (p1 < p2){
+//                    swap(nums, p2, i);
+//                }
+//            }else if (nums[i] == 1){
+//                p2++;
+//                swap(nums, p2, i);
+//            }
+//        }
+//    }
     //endregion
-
 
     //region 解法三：排序：快排思路解法， partition
     public static void sortColors(int[] nums) {
@@ -99,6 +98,30 @@ public class Solution {
         nums[j] = temp;
     }
     //endregion
+
+    // region 计数排序解法
+    public static void sortColors2(int[] nums) {
+        int R = 2;
+        int n = nums.length;
+        int[] cnt = new int[R];
+        for (int i = 0; i < n; i++) {
+            cnt[nums[i]]++;
+        }
+
+        int[] index = new int[R + 1];
+        for (int i = 0; i < cnt.length; i++) {
+            // index[i]...index[i+1] = i
+            index[i + 1] = index[i] + cnt[i];
+        }
+
+        int[] ret = new int[n];
+        for (int i = 0; i < n; i++) {
+            ret[index[nums[i]]] = nums[i];
+            index[nums[i]]++;
+        }
+        System.arraycopy(ret,0 , nums, 0, n);
+    }
+    // endregion
 
 
 }
