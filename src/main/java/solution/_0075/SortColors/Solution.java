@@ -101,7 +101,7 @@ public class Solution {
 
     // region 计数排序解法
     public static void sortColors2(int[] nums) {
-        int R = 2;
+        int R = 3;
         int n = nums.length;
         int[] cnt = new int[R];
         for (int i = 0; i < n; i++) {
