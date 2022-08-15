@@ -9,6 +9,36 @@ public class Solution {
         System.out.println(lengthOfLongestSubstring("pwwkew"));
     }
 
+    public static int customLengthOfLongestSubstringTwo(String s) {
+        if (s.isEmpty()) {
+            return 0;
+        }
+
+        int thisSum = 0;
+        int maxSum = 0;
+        Set<Character> set = new HashSet<>();
+
+        int l = 0;
+        for (int r = 0; r < s.length(); r++) {
+            char c = s.charAt(r);
+
+            if (!set.contains(c)) {
+                // 扩张
+
+                thisSum++;
+                set.add(c);
+                r++;
+
+
+            }else {
+                // 收缩
+
+            }
+        }
+
+        return maxSum;
+    }
+
     public static int customLengthOfLongestSubstring(String s) {
         int length = s.length();
         if (length == 0){
