@@ -1,4 +1,4 @@
-package solution._200.NumberOfIslands;
+package solution._0200.NumberOfIslands;
 
 public class Solution {
 
